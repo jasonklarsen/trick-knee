@@ -1,12 +1,10 @@
-Trick Knee
+Trick Knee  [![Build Status](https://travis-ci.org/jasonklarsen/trick-knee.png?branch=master)](https://travis-ci.org/jasonklarsen/trick-knee)
 ==========
-*"My trick-knee been actin' up -- must be a storm-a-comin'"*
+*"My trick-knee been actin' up -- must be a storm a-comin'"*
 
 The goal of this project is a simple bit of code to give you another 'sense' for your projects. You can think of it like a Build Monitor, but for those places where visual indicators don't make sense.
 
 This build a core executable jar that can be integrated into other projects. The jar can also be used within any other JVM-based project.
-
-More information could be found by contacting me at: http://larsen.io
 
 Usage
 -----
