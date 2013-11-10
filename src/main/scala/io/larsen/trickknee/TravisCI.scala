@@ -10,15 +10,15 @@ class TravisCI(jsonGen: => Map[String, Any]) extends Twinge {
   def feltSomething = {
     jsonGen.get("last_build_status") match {
       case Some(0) => None
-      case Some(s) => Some(s"My Travis says that the last_build_status was $s -- ain't lookin' good")
-      case None    => Some("My Travis ain't workin' right")
+      case Some(s:Double) => Some(s"My Travis says that the last_build_status was '${s.toInt}' -- ain't lookin' good")
+      case _              => Some("My Travis ain't workin' right")
     }
   }
 }
 
 object TravisCI {
   def parseIt(): Map[String, Any] = {
-    parseIt("jasonklarsen", "resonance", { case ex:Throwable => ex.printStackTrace })
+    parseIt("jasonklarsen", "trick-knee", { case ex:Throwable => ex.printStackTrace })
   }
 
   def parseIt(name: String, repo: String, processException: PartialFunction[Throwable, Any]): Map[String, Any] = {

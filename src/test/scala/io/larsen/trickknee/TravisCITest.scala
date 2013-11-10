@@ -8,13 +8,13 @@ class TravisCITest extends FunSpec with ShouldMatchers {
 
   describe("A Travis") {
     it("will twinge when the last build is broken") {
-      val travis = new TravisCI( Map("last_build_status" -> 1) )
+      val travis = new TravisCI( Map("last_build_status" -> 1.0) )
       travis.feltSomething should be ('defined)
-      travis.feltSomething.get should include ("last_build_status was 1")
+      travis.feltSomething.get should include ("last_build_status was '1'")
     }
 
     it("will not twinge when the last build is successful") {
-      val travis = new TravisCI( Map("last_build_status" -> 0) )
+      val travis = new TravisCI( Map("last_build_status" -> 0.0) )
       travis.feltSomething should be (None)      
     }
 
