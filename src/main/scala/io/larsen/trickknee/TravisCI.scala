@@ -17,9 +17,12 @@ class TravisCI(jsonGen: => Map[String, Any]) extends Twinge {
 }
 
 object TravisCI {
-  def parseIt(): Map[String, Any] = {
-    parseIt("jasonklarsen", "trick-knee", { case ex:Throwable => ex.printStackTrace })
-  }
+
+  def apply(name: String, repo: String): TravisCI =
+    new TravisCI(parseIt(name, repo))
+
+  def parseIt(name: String, repo: String): Map[String, Any] = 
+    parseIt(name, repo, { case ex:Throwable => ex.printStackTrace })
 
   def parseIt(name: String, repo: String, processException: PartialFunction[Throwable, Any]): Map[String, Any] = {
     val jsonStringMaybe = Try(new URL(s"https://api.travis-ci.org/repositories/$name/$repo.json").asInput.string(scalax.io.Codec.UTF8))
@@ -27,8 +30,8 @@ object TravisCI {
     val jsonString = jsonStringMaybe.getOrElse("")
     val parsed = JSON.parseFull(jsonString)
     parsed match {
-      case Some(p: Map[String, Any]) => p
-      case _                         => Map()
+      case Some(p) => p.asInstanceOf[Map[String, Any]]
+      case _       => Map()
     }
   }
 }

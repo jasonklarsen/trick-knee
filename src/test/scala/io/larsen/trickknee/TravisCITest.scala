@@ -20,7 +20,7 @@ class TravisCITest extends FunSpec with ShouldMatchers {
 
     // If the project were larger, I would pull these two into a "integration test suite" of some sort....
     it("will parse JSON from the Travis CI API") {
-      val travisParsed = TravisCI.parseIt()
+      val travisParsed = TravisCI.parseIt("jasonklarsen", "trick-knee")
       travisParsed.contains("last_build_status") should be (true)
     }
     it("will not blow up when something is wrong with Travis CI API") {

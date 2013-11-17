@@ -1,21 +1,33 @@
 package io.larsen.trickknee
 
+import com.typesafe.config.ConfigFactory
+import scala.util.Try
 
 object Main extends App {
-  val twinges = Knee().feltSomething()
-  twinges.foreach { println }
-  sys.exit(twinges.size)
+  val maybeConfig = args.headOption.map(ConfigFactory.load)
+  val config = maybeConfig.getOrElse(ConfigFactory.empty)
+  val blueprint = new Blueprint(config)
+  val maybeKnee = blueprint.constructKnee
+  val readTheKnee = maybeKnee.transform(workThatKnee, tellMeWhyDidMaKneeBlewUp)
+  sys.exit(readTheKnee.get)
+
+  def workThatKnee(knee: Knee) = {
+    val twinges = knee.feltSomething
+    twinges.foreach { println }
+    Try(twinges.size)
+  }
+
+  def tellMeWhyDidMaKneeBlewUp(ex: Throwable) = { 
+    println(ex.getMessage)
+    ex.printStackTrace
+    Try(-1) 
+  }
 }
 
 class Knee(twinges: Twinge*) {
   def feltSomething(): Seq[String] = {
     twinges.map(_.feltSomething).flatten
   }
-}
-
-object Knee {
-  // Let's build this robotic trick-knee
-  def apply() = new Knee(new TravisCI(TravisCI.parseIt))
 }
 
 trait Twinge {
