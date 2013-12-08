@@ -23,7 +23,7 @@ class TravisCITest extends FunSpec with ShouldMatchers {
       val travisParsed = TravisCI.parseIt("jasonklarsen", "trick-knee")
       travisParsed.contains("last_build_status") should be (true)
     }
-    it("will not blow up when something is wrong with Travis CI API") {
+    it("will not throw exceptions when something is wrong with Travis CI API") {
       val travisParsed = TravisCI.parseIt("nobody", "here", {case _ => })
       travisParsed.contains("last_build_status") should be (false)      
     }

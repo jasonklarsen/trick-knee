@@ -11,12 +11,34 @@ Usage
 
 As a pre-built Java jar:
 
-     java -jar trick-knee-0.1.jar
+    java -jar trick-knee-0.1.jar some.conf
+
+The `some.conf` file can be a path to a configuration file in JSON (or technically anything supported by TypeSafe's [Config library](https://github.com/typesafehub/config)). 
+
+A simple (self-)example would be:
+
+    {
+      twinges: [
+        { type: "travis-ci", username: "jasonklarsen", repository: "trick-knee" }
+      ]
+    }
+
+This sets up a "twinge" of the knee to be sensitive to the Travis-CI integration for this project. Other types of twinges are listed below.
+
+Supported Twinges Types
+----
+
+ * [Travis CI](https://travis-ci.org) - Type is `travis-ci`, and the currently supported configuration parameters are `username` and `repository`. This checks the top level status.
+ * *more to be developed!*
+
+Supported Integration Patterns
+----
+
+ * As a standalone jar, see above example.
+ * *More patterns to be developed!*
 
 TODO
 ----
 
-- Proper configuration
-- List of configuration options
 - Explanations of how to use in a JVM project
 - Links to derived projects (sbt plugin?)

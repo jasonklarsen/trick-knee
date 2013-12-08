@@ -20,7 +20,7 @@ class Blueprint(config: Config) {
     }).toArray
 
   private def travisTwinge(tc: Config) =
-    Try(TravisCI(tc.getString("repository"), tc.getString("username"))).recover({ 
+    Try(TravisCI(tc.getString("username"), tc.getString("repository"))).recover({ 
       case ex => throw new ConfigException.Generic("Misconfigured Travis CI: " + ex.getMessage, ex)
     }).get
 
